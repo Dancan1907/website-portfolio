@@ -1,0 +1,53 @@
+```gitignore
+# ─── Node Modules ───
+node_modules/
+.pnpm-store/
+
+# ─── Environment Variables ───
+.env
+.env.local
+.env.production
+.env.development
+
+# ─── Build Outputs ───
+dist/
+build/
+out/
+.next/
+
+# ─── Backend ───
+backend/node_modules/
+backend/dist/
+backend/.env
+backend/prisma/*.db
+backend/prisma/*.sqlite
+backend/logs/
+
+# ─── Frontend ───
+frontend/node_modules/
+frontend/.env
+frontend/.next/
+frontend/out/
+
+# ─── IDE Files ───
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ─── OS Files ───
+.DS_Store
+Thumbs.db
+
+# ─── Logs ───
+logs/
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# ─── Testing ───
+coverage/
+
+# ─── Misc ───
+*.tmp
+*.temp
