@@ -1,13 +1,184 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
+// ──────────────────────────────────────────────────────────────
+// DATABASE SCHEMA — Portfolio Management System
+// ──────────────────────────────────────────────────────────────
+//
+// This schema defines all tables for the portfolio backend:
+// - User: Admin login credentials
+// - Profile: Personal information (Hero, About, Socials)
+// - Skill: Skills organized by category
+// - Project: Portfolio projects with full details
+// - ProjectImage: Project screenshots (Cloudinary URLs)
+// - Experience: Work experience entries
+// - Education: Education entries
+// - ContactMessage: Messages from visitors
+// ──────────────────────────────────────────────────────────────
 
 generator client {
-  provider = "prisma-client"
-  output   = "../generated/prisma"
+  provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ──────────────────────────────────────────────────────────────
+// AUTH
+// ──────────────────────────────────────────────────────────────
+
+model User {
+  id        String    @id @default(cuid())
+  email     String    @unique
+  password  String   //Hashed password (bcrypt)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relationship: One User has one Profile
+  profile   Profile?
+
+}
+
+// ──────────────────────────────────────────────────────────────
+// PROFILE — Personal Info (Hero, About, Socials)
+// ──────────────────────────────────────────────────────────────
+
+model Profile {
+  id          String   @id @default(cuid())
+  userId      String   @unique
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Personal Info
+  name        String
+  title       String
+  bio         String   @db.Text
+  avatarUrl   String?  // Cloudinary URL
+  resumeUrl   String?  // Google Drive/Cloudinary URL
+
+  // Social Links
+  githubUrl   String?
+  linkedinUrl String?
+  email       String
+  location    String
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// ──────────────────────────────────────────────────────────────
+// SKILLS — Organized by Category
+// ──────────────────────────────────────────────────────────────
+
+model Skill {
+  id          String   @id @default(cuid())
+  category    String   // e.g., "Programming Languages", "Backend", "Frontend"
+  name        String
+  icon        String?  // Optional emoji or CSS class
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Ensure no duplicate (category, name) combinations
+  @@unique([category, name])
+}
+
+// ──────────────────────────────────────────────────────────────
+// PROJECTS — Portfolio Projects
+// ──────────────────────────────────────────────────────────────
+
+model Project {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique // URL-friendly title (e.g., "ai-content-factory")
+  description String   @db.Text
+  problem     String?  @db.Text // What problem does it solve?
+  solution    String?  @db.Text // How did you solve it?
+  challenge   String?  @db.Text // What was the hardest part?
+  lessons     String?  @db.Text // What did you learn?
+
+  techStack   String[] // Array of technologies used
+  features    String[] // Array of key features
+
+  demoUrl     String?
+  githubUrl   String?
+  isFeatured  Boolean  @default(false) // Featured project gets extra space
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relationship: One Project has many Images
+  images      ProjectImage[]
+}
+
+// ──────────────────────────────────────────────────────────────
+// PROJECT IMAGES — Screenshots
+// ──────────────────────────────────────────────────────────────
+
+model ProjectImage {
+  id        String   @id @default(cuid())
+  projectId String
+  project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  url       String   // Cloudinary URL
+  alt       String?
+  isCover   Boolean  @default(false) // This is the main image
+
+  createdAt DateTime @default(now())
+}
+
+// ──────────────────────────────────────────────────────────────
+// EXPERIENCE — Work Experience
+// ──────────────────────────────────────────────────────────────
+
+model Experience {
+  id          String   @id @default(cuid())
+  role        String
+  organization String
+  location    String?
+  startDate   DateTime
+  endDate     DateTime?
+  isPresent   Boolean  @default(false) // Still working here?
+
+  description String   @db.Text
+  responsibilities String[] // Array of bullet points
+  technologies String[] // Technologies used
+  achievements String[] // Key achievements
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// ──────────────────────────────────────────────────────────────
+// EDUCATION — Education Entries
+// ──────────────────────────────────────────────────────────────
+
+model Education {
+  id          String   @id @default(cuid())
+  institution String
+  degree      String
+  location    String?
+  startDate   DateTime
+  endDate     DateTime?
+  isPresent   Boolean  @default(false)
+
+  description String?  @db.Text
+  coursework  String[] // Array of courses taken
+  achievements String[] // Academic achievements
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// ──────────────────────────────────────────────────────────────
+// CONTACT MESSAGES — From Visitors
+// ──────────────────────────────────────────────────────────────
+
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  subject   String
+  message   String   @db.Text
+  isRead    Boolean  @default(false) // Admin has read this?
+
+  createdAt DateTime @default(now())
 }
