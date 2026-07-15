@@ -1,22 +1,25 @@
+// ──────────────────────────────────────────────────────────────
+// ROOT APPLICATION MODULE
+// ──────────────────────────────────────────────────────────────
+//
+// This is the entry point for all modules in the application.
+// Every module must be imported here to be available.
+// ──────────────────────────────────────────────────────────────
+
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { PrismaModule } from './prisma/prisma.module'; // ← NEW IMPORT
 
 @Module({
-  imports: [], // Future modules will be added here
+  // ──────────────────────────────────────────────────────────
+  // imports: List of modules imported by this application
+  // PrismaModule is added here so its providers are available
+  // ──────────────────────────────────────────────────────────
+
+  imports: [PrismaModule], // ← ADDED THIS
+
   controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {}
-
-/*
- * app.module.ts - Root module of the application
- *
- * This file:
- * 1. Defines the AppModule class
- * 2. Uses @Module() decorator to define:
- *    - imports: other modules (empty for now)
- *    - controllers: AppController
- *    - providers: AppService
- * 3. This is where we'll add all future modules (Auth, Projects, Skills, etc.)
- */
