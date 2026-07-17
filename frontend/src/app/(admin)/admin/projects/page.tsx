@@ -37,7 +37,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import { Pencil, Trash2, Plus, ExternalLink, Github } from "lucide-react";
+import { Pencil, Trash2, Plus, ExternalLink } from "lucide-react";
 
 // ──────────────────────────────────────────────────────────
 // Form Validation Schema
@@ -118,7 +118,7 @@ function ProjectRow({
               rel="noopener noreferrer"
               className="text-gray-500 hover:text-indigo-600"
             >
-              <Github className="h-4 w-4" />
+              <ExternalLink className="h-4 w-4" />
             </a>
           )}
           <Button variant="outline" size="sm" onClick={() => onEdit(project)}>
