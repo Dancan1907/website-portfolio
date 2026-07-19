@@ -76,22 +76,21 @@ export default function ContactPage() {
     <>
       <Navbar />
       <main className="container mx-auto px-4 py-12 max-w-4xl">
-        <MotionWrapper> {/* ← WRAP CONTENT */}
+        <MotionWrapper>
+          {" "}
+          {/* ← WRAP CONTENT */}
           {/* ────────────────────────────────────────── */}
           {/* Section Header */}
           {/* ────────────────────────────────────────── */}
-
           <div className="mb-12">
             <p className="text-sm font-medium text-indigo-600">Let's Connect</p>
             <h1 className="text-3xl md:text-4xl font-bold mt-2">
               Have an opportunity, project, or question? Let's talk.
             </h1>
           </div>
-
           {/* ────────────────────────────────────────── */}
           {/* Contact Grid */}
           {/* ────────────────────────────────────────── */}
-
           <div className="grid md:grid-cols-3 gap-8">
             {/* ────────────────────────────────────────── */}
             {/* Contact Information (Left) */}
@@ -102,7 +101,7 @@ export default function ContactPage() {
                 <CardContent className="p-4">
                   <p className="text-sm font-medium">📧 Email</p>
                   <p className="text-sm text-gray-600 dark:text-gray-300">
-                    dancan@example.com
+                    dancankalerwa@gmail.com
                   </p>
                 </CardContent>
               </Card>
@@ -111,12 +110,12 @@ export default function ContactPage() {
                 <CardContent className="p-4">
                   <p className="text-sm font-medium">💼 LinkedIn</p>
                   <a
-                    href="https://linkedin.com/in/yourusername"
+                    href="https://www.linkedin.com/in/dancan-kalerwa-7a3741297/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-sm text-indigo-600 hover:underline"
                   >
-                    linkedin.com/in/yourusername
+                    Dancan Kalerwa
                   </a>
                 </CardContent>
               </Card>
@@ -125,12 +124,12 @@ export default function ContactPage() {
                 <CardContent className="p-4">
                   <p className="text-sm font-medium">💻 GitHub</p>
                   <a
-                    href="https://github.com/yourusername"
+                    href="https://github.com/Dancan1907"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-sm text-indigo-600 hover:underline"
                   >
-                    github.com/yourusername
+                    Dancan1907
                   </a>
                 </CardContent>
               </Card>

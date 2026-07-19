@@ -124,13 +124,15 @@ export default async function AboutPage() {
                     "Computer Science student with a passion for designing scalable software and solving complex problems through technology."}
                 </p>
                 <p className="text-gray-600 dark:text-gray-300">
-                  My journey began in 2022 when I enrolled in Computer Science.
-                  By 2023, I had built my first web application, which ignited
-                  my passion for backend engineering. In 2024, I dove deep into
-                  system architecture and API design, and by 2025, I was
-                  exploring AI and cloud technologies. Today, I focus on
-                  building scalable software projects that solve real-world
-                  problems.
+                  My journey began in 2023 when I enrolled in Computer Science
+                  at the University of Eldoret. I quickly discovered my love for
+                  coding and problem-solving, which led me to explore various
+                  programming languages and frameworks. By 2025, I had built my
+                  first web application, which ignited my passion for backend
+                  engineering. In 2026, I dove deep into system architecture and
+                  API design, and by 2027, I was exploring AI and cloud
+                  technologies. Today, I focus on building scalable software
+                  projects that solve real-world problems.
                 </p>
               </div>
             </div>
@@ -145,7 +147,7 @@ export default async function AboutPage() {
               <h3 className="text-xl font-semibold mb-4">Areas of Interest</h3>
               <div className="flex flex-wrap gap-2">
                 {[
-                  "Backend Engineering",
+                  "Software Engineering",
                   "Artificial Intelligence",
                   "Cloud Computing",
                   "API Development",
@@ -178,7 +180,7 @@ export default async function AboutPage() {
                     Computer Science
                   </p>
                   <p>
-                    <span className="font-medium">Focus:</span> Backend
+                    <span className="font-medium">Focus:</span> Software
                     Engineering
                   </p>
                   <p>
@@ -206,6 +208,7 @@ export default async function AboutPage() {
               <div className="p-6 border rounded-lg bg-indigo-50 dark:bg-indigo-900/20">
                 <h3 className="text-lg font-semibold mb-4">🔥 Current Focus</h3>
                 <div className="space-y-2 text-sm">
+                  <p>• Software Engineering</p>
                   <p>• Microservices</p>
                   <p>• Docker</p>
                   <p>• Cloud Deployment</p>
