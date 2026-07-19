@@ -1,17 +1,10 @@
-// ──────────────────────────────────────────────────────────────
-// ROOT LAYOUT
-// ──────────────────────────────────────────────────────────────
-//
-// This is the root layout for the entire application.
-// It wraps all pages with the QueryProvider and global styles.
-// ──────────────────────────────────────────────────────────────
-
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { QueryProvider } from "@/lib/query-provider";
-import { Toaster } from "sonner"; // ← ADD THIS
-import { ThemeProvider } from "@/components/theme-provider"; // ← NEW
+import { Toaster } from "sonner";
+import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeScript } from "@/components/theme-script"; // ← NEW
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -29,6 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
+        <ThemeScript /> {/* ← ADD THIS BEFORE ThemeProvider */}
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -37,7 +31,7 @@ export default function RootLayout({
         >
           <QueryProvider>
             {children}
-            <Toaster position="top-right" richColors /> {/* ← ADD THIS */}
+            <Toaster position="top-right" richColors />
           </QueryProvider>
         </ThemeProvider>
       </body>

@@ -19,6 +19,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
+import { MotionWrapper } from "@/components/motion-wrapper"; // ← NEW
 
 // ──────────────────────────────────────────────────────────
 // Form Validation Schema
@@ -75,154 +76,156 @@ export default function ContactPage() {
     <>
       <Navbar />
       <main className="container mx-auto px-4 py-12 max-w-4xl">
-        {/* ────────────────────────────────────────── */}
-        {/* Section Header */}
-        {/* ────────────────────────────────────────── */}
-
-        <div className="mb-12">
-          <p className="text-sm font-medium text-indigo-600">Let's Connect</p>
-          <h1 className="text-3xl md:text-4xl font-bold mt-2">
-            Have an opportunity, project, or question? Let's talk.
-          </h1>
-        </div>
-
-        {/* ────────────────────────────────────────── */}
-        {/* Contact Grid */}
-        {/* ────────────────────────────────────────── */}
-
-        <div className="grid md:grid-cols-3 gap-8">
+        <MotionWrapper> {/* ← WRAP CONTENT */}
           {/* ────────────────────────────────────────── */}
-          {/* Contact Information (Left) */}
+          {/* Section Header */}
           {/* ────────────────────────────────────────── */}
 
-          <div className="space-y-4">
-            <Card>
-              <CardContent className="p-4">
-                <p className="text-sm font-medium">📧 Email</p>
-                <p className="text-sm text-gray-600 dark:text-gray-300">
-                  dancan@example.com
+          <div className="mb-12">
+            <p className="text-sm font-medium text-indigo-600">Let's Connect</p>
+            <h1 className="text-3xl md:text-4xl font-bold mt-2">
+              Have an opportunity, project, or question? Let's talk.
+            </h1>
+          </div>
+
+          {/* ────────────────────────────────────────── */}
+          {/* Contact Grid */}
+          {/* ────────────────────────────────────────── */}
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {/* ────────────────────────────────────────── */}
+            {/* Contact Information (Left) */}
+            {/* ────────────────────────────────────────── */}
+
+            <div className="space-y-4">
+              <Card>
+                <CardContent className="p-4">
+                  <p className="text-sm font-medium">📧 Email</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-300">
+                    dancan@example.com
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardContent className="p-4">
+                  <p className="text-sm font-medium">💼 LinkedIn</p>
+                  <a
+                    href="https://linkedin.com/in/yourusername"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm text-indigo-600 hover:underline"
+                  >
+                    linkedin.com/in/yourusername
+                  </a>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardContent className="p-4">
+                  <p className="text-sm font-medium">💻 GitHub</p>
+                  <a
+                    href="https://github.com/yourusername"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm text-indigo-600 hover:underline"
+                  >
+                    github.com/yourusername
+                  </a>
+                </CardContent>
+              </Card>
+
+              <div className="p-4 border rounded-lg bg-green-50 dark:bg-green-900/20">
+                <p className="text-sm font-medium text-green-700 dark:text-green-300">
+                  🟢 Available for Internships
                 </p>
-              </CardContent>
-            </Card>
+                <p className="text-xs text-gray-500 mt-1">
+                  Usually responds within 24–48 hours.
+                </p>
+              </div>
 
-            <Card>
-              <CardContent className="p-4">
-                <p className="text-sm font-medium">💼 LinkedIn</p>
-                <a
-                  href="https://linkedin.com/in/yourusername"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-indigo-600 hover:underline"
-                >
-                  linkedin.com/in/yourusername
+              <div className="mt-4">
+                <a href="#" className="text-sm text-indigo-600 hover:underline">
+                  📄 Download Resume
                 </a>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardContent className="p-4">
-                <p className="text-sm font-medium">💻 GitHub</p>
-                <a
-                  href="https://github.com/yourusername"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-indigo-600 hover:underline"
-                >
-                  github.com/yourusername
-                </a>
-              </CardContent>
-            </Card>
-
-            <div className="p-4 border rounded-lg bg-green-50 dark:bg-green-900/20">
-              <p className="text-sm font-medium text-green-700 dark:text-green-300">
-                🟢 Available for Internships
-              </p>
-              <p className="text-xs text-gray-500 mt-1">
-                Usually responds within 24–48 hours.
-              </p>
+              </div>
             </div>
 
-            <div className="mt-4">
-              <a href="#" className="text-sm text-indigo-600 hover:underline">
-                📄 Download Resume
-              </a>
+            {/* ────────────────────────────────────────── */}
+            {/* Contact Form (Right) */}
+            {/* ────────────────────────────────────────── */}
+
+            <div className="md:col-span-2">
+              <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+                <div>
+                  <Label htmlFor="name">Name</Label>
+                  <Input
+                    id="name"
+                    placeholder="Your name"
+                    {...register("name")}
+                  />
+                  {errors.name && (
+                    <p className="text-sm text-red-500 mt-1">
+                      {errors.name.message}
+                    </p>
+                  )}
+                </div>
+
+                <div>
+                  <Label htmlFor="email">Email</Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    placeholder="your@email.com"
+                    {...register("email")}
+                  />
+                  {errors.email && (
+                    <p className="text-sm text-red-500 mt-1">
+                      {errors.email.message}
+                    </p>
+                  )}
+                </div>
+
+                <div>
+                  <Label htmlFor="subject">Subject</Label>
+                  <Input
+                    id="subject"
+                    placeholder="What's this about?"
+                    {...register("subject")}
+                  />
+                  {errors.subject && (
+                    <p className="text-sm text-red-500 mt-1">
+                      {errors.subject.message}
+                    </p>
+                  )}
+                </div>
+
+                <div>
+                  <Label htmlFor="message">Message</Label>
+                  <Textarea
+                    id="message"
+                    placeholder="Tell me about your project, opportunity, or question..."
+                    rows={5}
+                    {...register("message")}
+                  />
+                  {errors.message && (
+                    <p className="text-sm text-red-500 mt-1">
+                      {errors.message.message}
+                    </p>
+                  )}
+                </div>
+
+                <Button
+                  type="submit"
+                  className="w-full md:w-auto"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? "Sending..." : "Send Message"}
+                </Button>
+              </form>
             </div>
           </div>
-
-          {/* ────────────────────────────────────────── */}
-          {/* Contact Form (Right) */}
-          {/* ────────────────────────────────────────── */}
-
-          <div className="md:col-span-2">
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-              <div>
-                <Label htmlFor="name">Name</Label>
-                <Input
-                  id="name"
-                  placeholder="Your name"
-                  {...register("name")}
-                />
-                {errors.name && (
-                  <p className="text-sm text-red-500 mt-1">
-                    {errors.name.message}
-                  </p>
-                )}
-              </div>
-
-              <div>
-                <Label htmlFor="email">Email</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="your@email.com"
-                  {...register("email")}
-                />
-                {errors.email && (
-                  <p className="text-sm text-red-500 mt-1">
-                    {errors.email.message}
-                  </p>
-                )}
-              </div>
-
-              <div>
-                <Label htmlFor="subject">Subject</Label>
-                <Input
-                  id="subject"
-                  placeholder="What's this about?"
-                  {...register("subject")}
-                />
-                {errors.subject && (
-                  <p className="text-sm text-red-500 mt-1">
-                    {errors.subject.message}
-                  </p>
-                )}
-              </div>
-
-              <div>
-                <Label htmlFor="message">Message</Label>
-                <Textarea
-                  id="message"
-                  placeholder="Tell me about your project, opportunity, or question..."
-                  rows={5}
-                  {...register("message")}
-                />
-                {errors.message && (
-                  <p className="text-sm text-red-500 mt-1">
-                    {errors.message.message}
-                  </p>
-                )}
-              </div>
-
-              <Button
-                type="submit"
-                className="w-full md:w-auto"
-                disabled={isSubmitting}
-              >
-                {isSubmitting ? "Sending..." : "Send Message"}
-              </Button>
-            </form>
-          </div>
-        </div>
+        </MotionWrapper>
       </main>
     </>
   );
