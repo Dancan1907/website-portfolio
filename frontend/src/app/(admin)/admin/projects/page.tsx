@@ -43,6 +43,7 @@ import { Pencil, Trash2, Plus, ExternalLink } from "lucide-react";
 // Form Validation Schema
 // ──────────────────────────────────────────────────────────
 
+// ✅ FIX: Removed .default(false) – now required boolean
 const projectSchema = z.object({
   title: z.string().min(1, "Title is required"),
   description: z.string().optional(),
@@ -54,7 +55,7 @@ const projectSchema = z.object({
   features: z.string().optional(),
   demoUrl: z.string().url("Must be a valid URL").optional().or(z.literal("")),
   githubUrl: z.string().url("Must be a valid URL").optional().or(z.literal("")),
-  isFeatured: z.boolean().default(false),
+  isFeatured: z.boolean(), // ✅ required boolean, default handled in useForm
 });
 
 type ProjectFormData = z.infer<typeof projectSchema>;
@@ -161,7 +162,8 @@ function ProjectFormDialog({
     formState: { errors },
   } = useForm<ProjectFormData>({
     resolver: zodResolver(projectSchema),
-    defaultValues: project || {
+    // ✅ FIX: explicit default values, including isFeatured: false
+    defaultValues: {
       title: "",
       description: "",
       problem: "",
@@ -180,10 +182,19 @@ function ProjectFormDialog({
 
   useEffect(() => {
     if (project) {
+      // ✅ FIX: ensure isFeatured boolean with ?? false
       reset({
-        ...project,
+        title: project.title || "",
+        description: project.description || "",
+        problem: project.problem || "",
+        solution: project.solution || "",
+        challenge: project.challenge || "",
+        lessons: project.lessons || "",
         techStack: project.techStack?.join(", ") || "",
         features: project.features?.join(", ") || "",
+        demoUrl: project.demoUrl || "",
+        githubUrl: project.githubUrl || "",
+        isFeatured: project.isFeatured ?? false,
       });
     } else {
       reset({

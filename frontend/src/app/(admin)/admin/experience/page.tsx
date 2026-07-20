@@ -43,13 +43,14 @@ import { Pencil, Trash2, Plus } from "lucide-react";
 // Form Validation Schema
 // ──────────────────────────────────────────────────────────
 
+// ✅ FIX: Removed .default(false) – now required boolean
 const experienceSchema = z.object({
   role: z.string().min(1, "Role is required"),
   organization: z.string().min(1, "Organization is required"),
   location: z.string().optional(),
   startDate: z.string().min(1, "Start date is required"),
   endDate: z.string().optional(),
-  isPresent: z.boolean().default(false),
+  isPresent: z.boolean(), // ✅ required boolean, default handled in useForm
   description: z.string().optional(),
   responsibilities: z.string().optional(),
   technologies: z.string().optional(),
@@ -141,7 +142,8 @@ function ExperienceFormDialog({
     formState: { errors },
   } = useForm<ExperienceFormData>({
     resolver: zodResolver(experienceSchema),
-    defaultValues: experience || {
+    // ✅ FIX: explicit default values, including isPresent: false
+    defaultValues: {
       role: "",
       organization: "",
       location: "",
@@ -159,12 +161,17 @@ function ExperienceFormDialog({
 
   useEffect(() => {
     if (experience) {
+      // ✅ FIX: ensure isPresent boolean with ?? false
       reset({
-        ...experience,
+        role: experience.role || "",
+        organization: experience.organization || "",
+        location: experience.location || "",
         startDate: experience.startDate
           ? experience.startDate.split("T")[0]
           : "",
         endDate: experience.endDate ? experience.endDate.split("T")[0] : "",
+        isPresent: experience.isPresent ?? false,
+        description: experience.description || "",
         responsibilities: experience.responsibilities?.join("\n") || "",
         technologies: experience.technologies?.join(", ") || "",
         achievements: experience.achievements?.join("\n") || "",

@@ -49,7 +49,8 @@ const educationSchema = z.object({
   location: z.string().optional(),
   startDate: z.string().min(1, "Start date is required"),
   endDate: z.string().optional(),
-  isPresent: z.boolean().default(false),
+  // ✅ Removed .default(false) – now required boolean
+  isPresent: z.boolean(),
   description: z.string().optional(),
   coursework: z.string().optional(),
   achievements: z.string().optional(),
@@ -136,13 +137,13 @@ function EducationFormDialog({
     formState: { errors },
   } = useForm<EducationFormData>({
     resolver: zodResolver(educationSchema),
-    defaultValues: education || {
+    defaultValues: {
       institution: "",
       degree: "",
       location: "",
       startDate: "",
       endDate: "",
-      isPresent: false,
+      isPresent: false, // ✅ default set here, not in schema
       description: "",
       coursework: "",
       achievements: "",
@@ -154,9 +155,13 @@ function EducationFormDialog({
   useEffect(() => {
     if (education) {
       reset({
-        ...education,
+        institution: education.institution || "",
+        degree: education.degree || "",
+        location: education.location || "",
         startDate: education.startDate ? education.startDate.split("T")[0] : "",
         endDate: education.endDate ? education.endDate.split("T")[0] : "",
+        isPresent: education.isPresent ?? false, // ✅ ensure boolean
+        description: education.description || "",
         coursework: education.coursework?.join(", ") || "",
         achievements: education.achievements?.join("\n") || "",
       });

@@ -26,14 +26,14 @@ const pageVariants = {
     y: 0,
     transition: {
       duration: 0.4,
-      ease: "easeOut",
+      // ✅ Removed "ease": "easeOut" to fix TypeScript error
       delay: 0.1,
     },
   },
   exit: {
     opacity: 0,
     y: -20,
-    transition: { duration: 0.3, ease: "easeIn" },
+    transition: { duration: 0.3 }, // ✅ Removed "ease": "easeIn"
   },
 };
 
@@ -73,7 +73,7 @@ export const itemVariants = {
     opacity: 1,
     y: 0,
     scale: 1,
-    transition: { duration: 0.3, ease: "easeOut" },
+    transition: { duration: 0.3 }, // ✅ Removed "ease": "easeOut"
   },
 };
 
