@@ -2,10 +2,21 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
-    domains: ["ui-avatars.com", "cloudinary.com"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "ui-avatars.com",
+      },
+      {
+        protocol: "https",
+        hostname: "cloudinary.com",
+      },
+    ],
   },
   experimental: {
-    serverActions: true,
+    serverActions: {
+      bodySizeLimit: "2mb",
+    },
   },
 };
 
